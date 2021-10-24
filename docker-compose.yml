@@ -16,17 +16,16 @@ services:
       - ./config/coredns:/etc/coredns
     networks:
       moonlab:
-        ipv4_address: 172.20.0.2
-  echo:
+  chamber:
     image: ealen/echo-server:latest
+    container_name: chamber
+    restart: unless-stopped
     ports:
       - 80:80
+      - 443:443
     networks:
       moonlab:
-        ipv4_address: 172.20.0.3
 
 networks:
   moonlab:
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+    driver: bridge
