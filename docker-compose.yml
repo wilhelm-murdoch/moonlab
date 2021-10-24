@@ -4,24 +4,29 @@ services:
   coredns:
     image: coredns/coredns:latest
     container_name: coredns
+    command: '-conf /etc/coredns/Corefile'
     restart: unless-stopped
     expose:
       - '53'
-      - '53/udp'
+      - 53/udp
     ports:
-      - '53:53'
-      - '53:53/udp'
+      - 53:53
+      - 53:53/udp
     volumes:
-      - './config/coredns:/etc/coredns'
+      - ./config/coredns:/etc/coredns
     networks:
       moonlab:
-        ipv4_address: 172.16.238.10
+        ipv4_address: 172.20.0.2
+  echo:
+    image: ealen/echo-server:latest
+    ports:
+      - 80:80
+    networks:
+      moonlab:
+        ipv4_address: 172.20.0.3
 
 networks:
   moonlab:
-    driver: bridge
     ipam:
-      driver: default
       config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
+        - subnet: 172.20.0.0/16

@@ -1,6 +1,10 @@
 .:53 {
-  file /etc/coredns/moon.lab moon.lab
-  proxy . 8.8.8.8:53 [2001:4860:4860::8888]:53
+  file /etc/coredns/moon.lab moon.lab {
+      reload 2s
+  }
+  reload 2s
+  forward . 1.1.1.1 1.0.0.1 8.8.8.8 8.8.4.4 8.8.8.8 [2001:4860:4860::8888]:53
+  prometheus
   errors stdout
   log stdout
 }
