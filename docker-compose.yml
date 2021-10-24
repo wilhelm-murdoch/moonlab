@@ -1,0 +1,27 @@
+---
+version: '3.9'
+services:
+  coredns:
+    image: coredns/coredns:latest
+    container_name: coredns
+    restart: unless-stopped
+    expose:
+      - '53'
+      - '53/udp'
+    ports:
+      - '53:53'
+      - '53:53/udp'
+    volumes:
+      - './config/coredns:/etc/coredns'
+    networks:
+      moonlab:
+        ipv4_address: 172.16.238.10
+
+networks:
+  moonlab:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1

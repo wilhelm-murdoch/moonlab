@@ -1,0 +1,6 @@
+.:53 {
+  file /etc/coredns/moon.lab moon.lab
+  proxy . 8.8.8.8:53 [2001:4860:4860::8888]:53
+  errors stdout
+  log stdout
+}
